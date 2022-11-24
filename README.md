@@ -1,5 +1,5 @@
 # OkePoke
 Internship Test Task.
 
-Architecture: MVVM
+Architecture: MVVM<br>
 Programmatic Autolayout
