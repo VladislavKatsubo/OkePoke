@@ -1,2 +1,5 @@
 # OkePoke
-Test Task for Internship.
+Internship Test Task.
+
+Architecture: MVVM
+Programmatic Autolayout
