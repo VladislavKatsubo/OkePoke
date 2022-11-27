@@ -8,7 +8,7 @@
 import UIKit
 
 class PokemonListVCLayout: UIView {
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,7 @@ class PokemonListVCLayout: UIView {
     func configureTableView() {
         addSubview(tableView)
         tableView.pin(to: self)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.rowHeight = 50
+        tableView.register(PokemonListTableViewCell.self, forCellReuseIdentifier: PokemonListTableViewCell.identifier)
+        tableView.rowHeight = 80
     }
 }

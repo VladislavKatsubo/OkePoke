@@ -11,7 +11,7 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 
 class CustomImageView: UIImageView {
     
-    let activityView = UIActivityIndicatorView(style: .large)
+    let activityView = UIActivityIndicatorView(style: .medium)
     var imageUrlString: String?
     
     func loadImageFromURL(_ urlString: String) {
@@ -31,34 +31,25 @@ class CustomImageView: UIImageView {
             return
         }
         
-        NetworkManager.shared.fetchData(with: url, ofType: Data.self) { result in
+        NetworkManager.shared.loadImage(url: url) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.activityView.stopAnimating()
+                self?.activityView.removeFromSuperview()
+            }
             switch result {
-            case .success(_):
-                print("yep")
-            case .failure(_):
-                print("nope")
+            case .success(let data):
+                DispatchQueue.main.async {
+                    if let imageToCache = UIImage(data: data) {
+                        if self?.imageUrlString == urlString {
+                            self?.image = imageToCache
+                            imageCache.setObject(imageToCache, forKey: urlString as AnyObject)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
             }
         }
-        
-//        URLSession.shared.dataTask(with: url) { data, response, error in
-//            DispatchQueue.main.async {
-//                self.activityView.stopAnimating()
-//                self.activityView.removeFromSuperview()
-//            }
-//
-//            if let data = data {
-//                DispatchQueue.main.async {
-//                    if let imageToCache = UIImage(data: data) {
-//                        if self.imageUrlString == urlString {
-//                            self.image = imageToCache
-//                        }
-//                        imageCache.setObject(imageToCache, forKey: urlString as AnyObject)
-//                    } else {
-//                        print(error?.localizedDescription ?? "Can't load image from URL")
-//                    }
-//                }
-//            }
-//        }.resume()
         
     }
 }

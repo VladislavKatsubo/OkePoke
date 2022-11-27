@@ -10,16 +10,17 @@ import Foundation
 // MARK: - List response
 struct PokeapiResponse: Codable {
     var next: String
-    var results: [PokemonList]
+    var results: [PokemonData]
 }
 
-struct PokemonList: Codable {
+struct PokemonData: Codable {
     var name: String
     var url: String
 }
 
 // MARK: - ID response
-struct PokemonIDResponse: Codable {
+struct PokemonInfo: Codable {
+    var name: String
     var height: Int
     var sprites: Sprites
     var weight: Int
@@ -27,11 +28,11 @@ struct PokemonIDResponse: Codable {
 }
 
 struct Sprites: Codable {
-    
+    var frontDefault: String
 }
 
 struct PokemonType: Codable {
-    var type: [AvailableTypes]
+    var type: AvailableTypes
 }
 
 struct AvailableTypes: Codable {

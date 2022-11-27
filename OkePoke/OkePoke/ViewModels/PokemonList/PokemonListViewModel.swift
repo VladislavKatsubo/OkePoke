@@ -16,12 +16,12 @@ import Foundation
 
 class PokemonListViewModel {
     private var pokemonService = PokemonListService()
-    var pokemonList: [PokemonList] = []
+    var pokemonList: [PokemonData] = []
     
     func loadPokemonList(completion: @escaping () -> ()) {
-        pokemonService.loadPokemons { [weak self] result in
-                result.results.forEach({ self?.pokemonList.append($0) })
-                completion()
+        pokemonService.loadPokemonData { [weak self] result in
+            self?.pokemonList = result.results
+            completion()
         }
     }
     
@@ -29,9 +29,11 @@ class PokemonListViewModel {
         return pokemonList.count
     }
     
-    func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModelProtocol {
-        return PokemonListTableViewCellViewModel(pokemonInfo: pokemonList[indexPath.row])
-    }
     
+    
+    func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModel? {
+        let pokemonData = pokemonList[indexPath.row]
+        return PokemonListTableViewCellViewModel(pokemonData: pokemonData, pokemonID: indexPath.row + 1)
+    }
     
 }

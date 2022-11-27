@@ -8,17 +8,15 @@
 import UIKit
 
 class PokemonListViewController: UIViewController {
-
+    
     lazy var layout: PokemonListVCLayout = .init()
-
+    
     private var viewModel = PokemonListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = PokemonListViewModel()
-        
         viewModel.loadPokemonList {
-            self.layout.tableView.reloadData()
+                self.layout.tableView.reloadData()
         }
         
         layout.tableView.delegate = self
@@ -33,20 +31,23 @@ class PokemonListViewController: UIViewController {
 }
 
 extension PokemonListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailedVC = PokemonDetailViewController()
+        detailedVC.pokemonDetailViewModel = PokemonDetailViewModel(pokemonID: indexPath.row + 1)
+        navigationController?.pushViewController(detailedVC, animated: true)
+    }
 }
 
 extension PokemonListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.numberOfRows()
+        return viewModel.numberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = viewModel.pokemonList[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: PokemonListTableViewCell.identifier, for: indexPath) as! PokemonListTableViewCell
+        cell.viewModel = viewModel.cellViewModel(at: indexPath)
         return cell
     }
-    
     
 }
 

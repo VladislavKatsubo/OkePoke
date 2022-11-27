@@ -11,8 +11,7 @@ struct PokemonListService {
     
     private let listURL = URL(string: "https://pokeapi.co/api/v2/pokemon")
     
-        
-    func loadPokemons(completion: @escaping (PokeapiResponse) -> ()) {
+    func loadPokemonData(completion: @escaping (PokeapiResponse) -> ()) {
         guard let url = listURL else { return }
         NetworkManager.shared.fetchData(with: url, ofType: PokeapiResponse.self) { result in
             switch result {
