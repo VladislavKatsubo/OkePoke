@@ -15,11 +15,17 @@ class PokemonDetailViewController: UIViewController {
         }
     }
     
+    lazy var layout: PokemonDetailVCLayout = .init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pokemonDetailViewModel.downloadedPokemon = { [weak self] in
-            print(self?.pokemonDetailViewModel.name)
+            self?.layout.viewModel = self?.pokemonDetailViewModel
         }
+    }
+    
+    override func loadView() {
+        super.loadView()
+        view = layout
     }
 }

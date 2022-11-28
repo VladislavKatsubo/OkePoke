@@ -18,8 +18,12 @@ class PokemonDetailViewModel {
         return "\(pokemonDetailedInfo?.name ?? "No data")"
     }
     
-    var types: String {
-        return "\(String(describing: pokemonDetailedInfo?.types))"
+    var types: [String?] {
+        var names = [String]()
+        pokemonDetailedInfo?.types.forEach({
+            names.append($0.type.name)
+        })
+        return names
     }
     
     var weight: Int {

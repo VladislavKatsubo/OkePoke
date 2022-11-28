@@ -30,7 +30,6 @@ class PokemonListViewModel {
     }
     
     
-    
     func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModel? {
         let pokemonData = pokemonList[indexPath.row]
         return PokemonListTableViewCellViewModel(pokemonData: pokemonData, pokemonID: indexPath.row + 1)

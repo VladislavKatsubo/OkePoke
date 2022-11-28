@@ -23,6 +23,7 @@ class PokemonListVCLayout: UIView {
         addSubview(tableView)
         tableView.pin(to: self)
         tableView.register(PokemonListTableViewCell.self, forCellReuseIdentifier: PokemonListTableViewCell.identifier)
-        tableView.rowHeight = 80
+        tableView.rowHeight = 100
+        tableView.separatorStyle = .none
     }
 }
