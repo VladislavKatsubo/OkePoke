@@ -92,25 +92,19 @@ class PokemonListTableViewCell: UITableViewCell {
     }
     
     func animatePressing() {
-        UIView.animate(withDuration: 2, animations: { [weak self] in
-            self?.transform =
-            CGAffineTransform(scaleX: 0.8, y: 0.8)
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.containerView.transform =
+            CGAffineTransform(scaleX: 1.1, y: 1.1)
         })
-        UIView.animate(withDuration: 2, animations: { [weak self] in
-            self?.transform = CGAffineTransform(scaleX: 1, y: 1)
+        UIView.animate(withDuration: 0.1, animations: { [weak self] in
+            self?.containerView.transform = CGAffineTransform(scaleX: 1, y: 1)
         })
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.containerView.transform =
-                CGAffineTransform(scaleX: 0.9, y: 0.9)
-            })
-            UIView.animate(withDuration: 0.1, animations: { [weak self] in
-                self?.containerView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            })
+            animatePressing()
         }
     }
     

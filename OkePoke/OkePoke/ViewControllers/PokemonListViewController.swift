@@ -51,3 +51,20 @@ extension PokemonListViewController: UITableViewDataSource {
     
 }
 
+extension PokemonListViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        layout.checkScroll(for: scrollView) {
+            guard !viewModel.isPaginating else { return }
+            layout.setSpinnerFooter()
+            viewModel.loadPokemonList(pagination: true) {
+                self.layout.tableView.reloadData()
+                self.layout.tableView.tableFooterView = .none
+            }
+        }
+        
+        
+        
+    }
+}
+

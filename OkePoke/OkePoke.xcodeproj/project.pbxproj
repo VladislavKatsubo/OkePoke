@@ -109,8 +109,8 @@
 		0D122211292F9A60006CB88C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				0D12222E2933C975006CB88C /* PokemonDetails */,
 				0D12222D2933C96A006CB88C /* PokemonList */,
+				0D12222E2933C975006CB88C /* PokemonDetail */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -170,12 +170,12 @@
 			path = PokemonList;
 			sourceTree = "<group>";
 		};
-		0D12222E2933C975006CB88C /* PokemonDetails */ = {
+		0D12222E2933C975006CB88C /* PokemonDetail */ = {
 			isa = PBXGroup;
 			children = (
 				0D12222F2933C9BB006CB88C /* PokemonDetailViewModel.swift */,
 			);
-			path = PokemonDetails;
+			path = PokemonDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

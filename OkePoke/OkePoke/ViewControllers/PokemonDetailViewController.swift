@@ -22,6 +22,7 @@ class PokemonDetailViewController: UIViewController {
         pokemonDetailViewModel.downloadedPokemon = { [weak self] in
             self?.layout.viewModel = self?.pokemonDetailViewModel
         }
+        navigationController?.navigationBar.tintColor = .white
     }
     
     override func loadView() {

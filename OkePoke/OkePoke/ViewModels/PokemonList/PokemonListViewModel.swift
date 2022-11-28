@@ -17,11 +17,22 @@ import Foundation
 class PokemonListViewModel {
     private var pokemonService = PokemonListService()
     var pokemonList: [PokemonData] = []
+    private let listURL = URL(string: "https://pokeapi.co/api/v2/pokemon")
+    var nextURL: URL?
+    var isPaginating = false
     
-    func loadPokemonList(completion: @escaping () -> ()) {
-        pokemonService.loadPokemonData { [weak self] result in
-            self?.pokemonList = result.results
+    func loadPokemonList(pagination: Bool = false, completion: @escaping () -> ()) {
+        if pagination {
+            isPaginating = true
+        }
+        guard let url = (pagination ? nextURL : listURL) else { return }
+        pokemonService.loadPokemonData(with: url) { [weak self] result in
+            self?.nextURL = URL(string: result.next)
+            self?.pokemonList.append(contentsOf: result.results)
             completion()
+            if pagination {
+                self?.isPaginating = false
+            }
         }
     }
     

@@ -12,13 +12,13 @@ class PokemonDetailViewModel {
     
     private var pokemonDetailService = PokemonDetailService()
     var pokemonDetailedInfo: PokemonInfo?
-    private let pokemonID: Int
+    let pokemonID: Int
     
     var name: String {
         return "\(pokemonDetailedInfo?.name ?? "No data")"
     }
     
-    var types: [String?] {
+    var types: [String] {
         var names = [String]()
         pokemonDetailedInfo?.types.forEach({
             names.append($0.type.name)
