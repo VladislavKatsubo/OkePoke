@@ -11,7 +11,7 @@ import Foundation
 class PokemonDetailViewModel {
     
     private var pokemonDetailService = PokemonDetailService()
-    var pokemonDetailedInfo: PokemonInfo?
+    private var pokemonDetailedInfo: PokemonInfo?
     let pokemonID: Int
     
     var name: String {

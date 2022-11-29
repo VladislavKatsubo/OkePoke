@@ -11,7 +11,7 @@ let imageCache = NSCache<AnyObject, AnyObject>()
 
 class CustomImageView: UIImageView {
     
-    let activityView = UIActivityIndicatorView(style: .medium)
+    let activityView = UIActivityIndicatorView(style: .large)
     var imageUrlString: String?
     
     func loadImageFromURL(_ urlString: String) {

@@ -48,19 +48,19 @@ class PokemonListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureImageView() {
+    private func configureImageView() {
         pokemonImageView.contentMode = .scaleAspectFit
         pokemonImageView.clipsToBounds = true
     }
     
-    func configureLabel() {
+    private func configureLabel() {
         pokemonName.numberOfLines = 0
         pokemonName.adjustsFontSizeToFitWidth = true
         pokemonName.font = UIFont.boldSystemFont(ofSize: 18)
         pokemonName.textColor = .black
     }
     
-    func setContainerViewConstraints() {
+    private func setContainerViewConstraints() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -70,7 +70,7 @@ class PokemonListTableViewCell: UITableViewCell {
         ])
     }
     
-    func setImageConstraints() {
+    private func setImageConstraints() {
         pokemonImageView.translatesAutoresizingMaskIntoConstraints = false
         pokemonImageView.activityView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -83,7 +83,7 @@ class PokemonListTableViewCell: UITableViewCell {
         ])
     }
     
-    func setLabelConstraints() {
+    private func setLabelConstraints() {
         pokemonName.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pokemonName.leadingAnchor.constraint(equalTo: pokemonImageView.trailingAnchor, constant: 20),
@@ -91,7 +91,7 @@ class PokemonListTableViewCell: UITableViewCell {
         ])
     }
     
-    func animatePressing() {
+    private func animatePressing() {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.containerView.transform =
             CGAffineTransform(scaleX: 1.1, y: 1.1)

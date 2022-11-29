@@ -41,31 +41,3 @@ class NetworkManager {
     }
     
 }
-//            switch T.self {
-//            case is PokeapiResponse<PokemonList>.Type:
-//                let pokemonData = try? decoder.decode(PokeapiResponse<PokemonList>.self, from: data)
-//                DispatchQueue.main.async { completion(pokemonData as? T) }
-//            default:
-//                print(T.self)
-//                break
-//            }
-
-//    func load<T>(url: URL, completion: @escaping (_ pokemonData: T?) -> Void) {
-//        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-//            guard let data = data else {
-//                DispatchQueue.main.async { completion(nil) }
-//                return
-//            }
-//            let decoder = JSONDecoder()
-//            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//            switch T.self {
-//            case is PokeapiResponse<PokemonList>.Type:
-//                let pokemonData = try? decoder.decode(PokeapiResponse<PokemonList>.self, from: data)
-//                DispatchQueue.main.async { completion(pokemonData as? T) }
-//            default:
-//                print(T.self)
-//                break
-//            }
-//        }
-//        task.resume()
-//    }

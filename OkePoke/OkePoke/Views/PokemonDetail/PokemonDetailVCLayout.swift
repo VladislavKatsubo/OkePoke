@@ -34,23 +34,19 @@ class PokemonDetailVCLayout: UIView {
     var firstTypeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.numberOfLines = 0
         label.sizeToFit()
-        label.textColor = .black
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 20
         return label
     }()
+    
     var secondTypeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.numberOfLines = 0
         label.sizeToFit()
         label.textColor = .black
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 20
         return label
     }()
     
@@ -58,6 +54,7 @@ class PokemonDetailVCLayout: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = .black
         label.numberOfLines = 0
         label.sizeToFit()
         return label
@@ -67,6 +64,7 @@ class PokemonDetailVCLayout: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = .black
         label.numberOfLines = 0
         label.sizeToFit()
         return label
@@ -77,9 +75,9 @@ class PokemonDetailVCLayout: UIView {
         didSet {
             pokemonImageView.loadImageFromURL(viewModel.imageURL)
             nameLabel.text = setNameLabelText(with: viewModel)
+            weightLabel.attributedText = setWeightLabelText(with: viewModel)
+            heightLabel.attributedText = setHeightLabelText(with: viewModel)
             setTypeLabels(with: viewModel)
-            weightLabel.text = setWeightLabelText(with: viewModel)
-            heightLabel.text = setHeightLabelText(with: viewModel)
             layer.insertSublayer(getBackgroundGradient(for: viewModel), at: 0)
             infoContainer.applyShadow(cornerRadius: 8)
             addBlur()
@@ -100,6 +98,8 @@ class PokemonDetailVCLayout: UIView {
         infoContainer.translatesAutoresizingMaskIntoConstraints = false
         addSubview(pokemonImageView)
         pokemonImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(pokemonImageView.activityView)
+        pokemonImageView.activityView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(firstTypeLabel)
@@ -111,93 +111,55 @@ class PokemonDetailVCLayout: UIView {
         addSubview(heightLabel)
         heightLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
         let weightHeightStack = UIStackView(arrangedSubviews: [
             weightLabel, heightLabel
         ])
-        weightHeightStack.translatesAutoresizingMaskIntoConstraints = false
         weightHeightStack.axis = .horizontal
-        weightHeightStack.setCustomSpacing(20, after: weightLabel)
+        weightHeightStack.setCustomSpacing(30, after: weightLabel)
+        weightHeightStack.translatesAutoresizingMaskIntoConstraints = false
         addSubview(weightHeightStack)
         
         
-        let typesStack = UIStackView(arrangedSubviews: [
-            firstTypeLabel, secondTypeLabel
-        ])
+        let typesStack = UIStackView(arrangedSubviews: [firstTypeLabel, secondTypeLabel])
         typesStack.axis = .horizontal
-        typesStack.setCustomSpacing(20, after: firstTypeLabel)
+        typesStack.setCustomSpacing(40, after: firstTypeLabel)
         typesStack.translatesAutoresizingMaskIntoConstraints = false
         addSubview(typesStack)
         
-        let allContentStack = UIStackView(arrangedSubviews: [
-            nameLabel, typesStack, weightHeightStack
-        ])
-        allContentStack.axis = .vertical
-        allContentStack.distribution = .fillEqually
-        allContentStack.spacing = 50
-        allContentStack.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(allContentStack)
+        infoContainer.addSubview(nameLabel)
+        infoContainer.addSubview(typesStack)
+        infoContainer.addSubview(weightHeightStack)
         
-        infoContainer.addSubview(allContentStack)
         
         NSLayoutConstraint.activate([
             infoContainer.centerXAnchor.constraint(equalTo: centerXAnchor),
             infoContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
             infoContainer.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75),
             infoContainer.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
-            allContentStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-            allContentStack.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 50),
+            weightHeightStack.bottomAnchor.constraint(equalTo: infoContainer.bottomAnchor, constant: -100),
+            weightHeightStack.centerXAnchor.constraint(equalTo: centerXAnchor),
+            typesStack.bottomAnchor.constraint(equalTo: weightHeightStack.topAnchor, constant: -50),
+            typesStack.centerXAnchor.constraint(equalTo: centerXAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: typesStack.topAnchor, constant: -50),
+            nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
+            nameLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
             pokemonImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            pokemonImageView.bottomAnchor.constraint(equalTo: allContentStack.topAnchor, constant: 100),
-            pokemonImageView.widthAnchor.constraint(equalTo: infoContainer.widthAnchor, multiplier: 0.75)
+            pokemonImageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 100),
+            pokemonImageView.widthAnchor.constraint(equalTo: infoContainer.widthAnchor, multiplier: 0.75),
+            pokemonImageView.activityView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            pokemonImageView.activityView.centerYAnchor.constraint(equalTo: infoContainer.topAnchor)
         ])
-    }
-    
-    func getBackgroundColor(type: String) -> UIColor {
-        switch type {
-        case "grass":
-            return .systemGreen
-        case "poison":
-            return .magenta
-        case "bug":
-            return .systemOrange
-        case "fire":
-            return .systemYellow
-        case "flying":
-            return .systemCyan
-        case "water":
-            return .systemBlue
-        case "fairy":
-            return .systemPink
-        case "ground":
-            return .systemBrown
-        case "rock":
-            return .brown
-        case "fighting":
-            return .systemRed
-        case "psychic":
-            return .systemIndigo
-        case "electric":
-            return .cyan
-        case "steel":
-            return .lightGray
-        case "dark":
-            return .darkGray
-        case "dragon":
-            return .red
-        default:
-            return .systemMint
-        }
     }
     
     func setTypeLabels(with viewModel: PokemonDetailViewModel) {
         let firstType = viewModel.types[0]
-        firstTypeLabel.text = firstType
-        firstTypeLabel.backgroundColor = getBackgroundColor(type: firstType)
+        firstTypeLabel.text = firstType.uppercased()
+        firstTypeLabel.textColor = getBackgroundColor(type: firstType)
         if viewModel.types.count > 1 {
             let secondType = viewModel.types[1]
-            secondTypeLabel.text = secondType
-            secondTypeLabel.backgroundColor = getBackgroundColor(type: secondType)
+            secondTypeLabel.text = secondType.uppercased()
+            secondTypeLabel.textColor = getBackgroundColor(type: secondType)
         } else {
             secondTypeLabel.isHidden = true
         }
@@ -207,12 +169,12 @@ class PokemonDetailVCLayout: UIView {
         return "#" + String(viewModel.pokemonID) + " " + viewModel.name.capitalized
     }
     
-    func setWeightLabelText(with viewModel: PokemonDetailViewModel) -> String {
-        "\(Double(viewModel.weight)/10) kg"
+    func setWeightLabelText(with viewModel: PokemonDetailViewModel) -> NSAttributedString {
+        addSymbolPrefix(with: "dumbbell.fill", for: "\(Double(viewModel.weight)/10) kg")
     }
     
-    func setHeightLabelText(with viewModel: PokemonDetailViewModel) -> String {
-        "\(Double(viewModel.height)/10) m"
+    func setHeightLabelText(with viewModel: PokemonDetailViewModel) -> NSAttributedString {
+        addSymbolPrefix(with: "arrow.up.and.down", for: "\(Double(viewModel.height)/10) m")
     }
     
     func getBackgroundGradient(for viewModel: PokemonDetailViewModel) -> CAGradientLayer {
@@ -234,7 +196,7 @@ class PokemonDetailVCLayout: UIView {
     }
     
     func addBlur() {
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialLight) // .extraLight or .dark
+        let blurEffect = UIBlurEffect(style: .systemThinMaterialLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = frame
         insertSubview(blurEffectView, at: 1)

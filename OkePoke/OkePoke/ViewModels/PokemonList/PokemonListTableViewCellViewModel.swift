@@ -7,10 +7,6 @@
 
 import Foundation
 
-//protocol PokemonListTableViewCellViewModelProtocol {
-//
-//}
-
 class PokemonListTableViewCellViewModel {
     
     private let pokemonData: PokemonData

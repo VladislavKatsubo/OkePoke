@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Pokemon" representedClassName="Pokemon" syncable="YES" codeGenerationType="class">
+        <attribute name="height" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="sprite" attributeType="String"/>
+        <attribute name="weight" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="pokemonType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PokeType" inverseName="pokemon" inverseEntity="PokeType"/>
+    </entity>
+    <entity name="Pokemons" representedClassName="Pokemons" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <relationship name="responseData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ResponseData" inverseName="pokemons" inverseEntity="ResponseData"/>
+    </entity>
+    <entity name="PokeType" representedClassName="PokeType" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="pokemon" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pokemon" inverseName="pokemonType" inverseEntity="Pokemon"/>
+    </entity>
+    <entity name="ResponseData" representedClassName="ResponseData" syncable="YES" codeGenerationType="class">
+        <attribute name="next" attributeType="String"/>
+        <relationship name="pokemons" toMany="YES" deletionRule="Nullify" destinationEntity="Pokemons" inverseName="responseData" inverseEntity="Pokemons"/>
+    </entity>
+</model>
