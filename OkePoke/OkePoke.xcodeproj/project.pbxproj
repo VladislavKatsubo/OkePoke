@@ -13,7 +13,6 @@
 		0D1221FB292F9A3F006CB88C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1221FA292F9A3F006CB88C /* AppDelegate.swift */; };
 		0D1221FD292F9A3F006CB88C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1221FC292F9A3F006CB88C /* SceneDelegate.swift */; };
 		0D1221FF292F9A3F006CB88C /* PokemonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1221FE292F9A3F006CB88C /* PokemonListViewController.swift */; };
-		0D122202292F9A3F006CB88C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D122200292F9A3F006CB88C /* Main.storyboard */; };
 		0D122204292F9A40006CB88C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D122203292F9A40006CB88C /* Assets.xcassets */; };
 		0D122207292F9A40006CB88C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D122205292F9A40006CB88C /* LaunchScreen.storyboard */; };
 		0D122217292FA186006CB88C /* PokeapiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D122216292FA186006CB88C /* PokeapiResponse.swift */; };
@@ -41,7 +40,6 @@
 		0D1221FA292F9A3F006CB88C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D1221FC292F9A3F006CB88C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0D1221FE292F9A3F006CB88C /* PokemonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewController.swift; sourceTree = "<group>"; };
-		0D122201292F9A3F006CB88C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D122203292F9A40006CB88C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D122206292F9A40006CB88C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0D122208292F9A40006CB88C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				0D122219292FA390006CB88C /* Views */,
 				0D122211292F9A60006CB88C /* ViewModels */,
 				0D122218292FA381006CB88C /* ViewControllers */,
-				0D122200292F9A3F006CB88C /* Main.storyboard */,
 				0D122203292F9A40006CB88C /* Assets.xcassets */,
 				0D01414F29366BD200F68F35 /* OkePoke.png */,
 				0D122205292F9A40006CB88C /* LaunchScreen.storyboard */,
@@ -286,7 +283,6 @@
 				0D01415029366BD300F68F35 /* OkePoke.png in Resources */,
 				0D122207292F9A40006CB88C /* LaunchScreen.storyboard in Resources */,
 				0D122204292F9A40006CB88C /* Assets.xcassets in Resources */,
-				0D122202292F9A3F006CB88C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,14 +319,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0D122200292F9A3F006CB88C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0D122201292F9A3F006CB88C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0D122205292F9A40006CB88C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -468,7 +456,6 @@
 				INFOPLIST_FILE = OkePoke/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -500,7 +487,6 @@
 				INFOPLIST_FILE = OkePoke/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
