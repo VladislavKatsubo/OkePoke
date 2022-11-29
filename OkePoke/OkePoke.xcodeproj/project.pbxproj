@@ -26,6 +26,7 @@
 		0D1222322933CACF006CB88C /* PokemonDetailVCLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1222312933CACF006CB88C /* PokemonDetailVCLayout.swift */; };
 		0D1222342933CBD6006CB88C /* PokemonDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1222332933CBD6006CB88C /* PokemonDetailService.swift */; };
 		0D1222362933D916006CB88C /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1222352933D916006CB88C /* PokemonDetailViewController.swift */; };
+		0D12225E2935F021006CB88C /* OkePokeDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D12225C2935F021006CB88C /* OkePokeDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		0D1222312933CACF006CB88C /* PokemonDetailVCLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailVCLayout.swift; sourceTree = "<group>"; };
 		0D1222332933CBD6006CB88C /* PokemonDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailService.swift; sourceTree = "<group>"; };
 		0D1222352933D916006CB88C /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
+		0D12225D2935F021006CB88C /* OkePokeDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OkePokeDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				0D122216292FA186006CB88C /* PokeapiResponse.swift */,
+				0D12225C2935F021006CB88C /* OkePokeDataModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				0D1221FF292F9A3F006CB88C /* PokemonListViewController.swift in Sources */,
 				0D1222342933CBD6006CB88C /* PokemonDetailService.swift in Sources */,
 				0D1222282932106E006CB88C /* ImageCacheService.swift in Sources */,
+				0D12225E2935F021006CB88C /* OkePokeDataModel.xcdatamodeld in Sources */,
 				0D122217292FA186006CB88C /* PokeapiResponse.swift in Sources */,
 				0D1222362933D916006CB88C /* PokemonDetailViewController.swift in Sources */,
 				0D12222629312A00006CB88C /* PokemonListService.swift in Sources */,
@@ -482,6 +486,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0D12225C2935F021006CB88C /* OkePokeDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0D12225D2935F021006CB88C /* OkePokeDataModel.xcdatamodel */,
+			);
+			currentVersion = 0D12225D2935F021006CB88C /* OkePokeDataModel.xcdatamodel */;
+			path = OkePokeDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0D1221EF292F9A3F006CB88C /* Project object */;
 }

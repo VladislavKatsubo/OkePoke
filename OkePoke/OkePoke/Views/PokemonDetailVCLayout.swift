@@ -28,7 +28,6 @@ class PokemonDetailVCLayout: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.numberOfLines = 0
         label.sizeToFit()
-        label.textColor = .black
         return label
     }()
     
@@ -61,7 +60,6 @@ class PokemonDetailVCLayout: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.numberOfLines = 0
         label.sizeToFit()
-        label.textColor = .black
         return label
     }()
     
@@ -71,7 +69,6 @@ class PokemonDetailVCLayout: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.numberOfLines = 0
         label.sizeToFit()
-        label.textColor = .black
         return label
     }()
     
@@ -85,6 +82,7 @@ class PokemonDetailVCLayout: UIView {
             heightLabel.text = setHeightLabelText(with: viewModel)
             layer.insertSublayer(getBackgroundGradient(for: viewModel), at: 0)
             infoContainer.applyShadow(cornerRadius: 8)
+            addBlur()
         }
     }
     
@@ -183,6 +181,10 @@ class PokemonDetailVCLayout: UIView {
             return .cyan
         case "steel":
             return .lightGray
+        case "dark":
+            return .darkGray
+        case "dragon":
+            return .red
         default:
             return .systemMint
         }
@@ -229,6 +231,13 @@ class PokemonDetailVCLayout: UIView {
         }
         gradientLayer.frame = self.bounds
         return gradientLayer
+    }
+    
+    func addBlur() {
+        let blurEffect = UIBlurEffect(style: .systemThinMaterialLight) // .extraLight or .dark
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = frame
+        insertSubview(blurEffectView, at: 1)
     }
     
 }
