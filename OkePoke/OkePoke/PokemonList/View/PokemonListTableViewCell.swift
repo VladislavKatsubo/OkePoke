@@ -7,11 +7,15 @@
 
 import UIKit
 
-class PokemonListTableViewCell: UITableViewCell {
+final class PokemonListTableViewCell: UITableViewCell {
+    
+    //MARK: Properties
     static let identifier = "PokemonListCell"
     private let containerView = UIView()
+    private let pokemonImageView: CustomImageView
+    private let pokemonName = UILabel()
     
-    var viewModel: PokemonListTableViewCellViewModel! {
+    var viewModel: PokemonListTableViewCellViewModelProtocol! {
         didSet {
             pokemonImageView.loadImageFromURL(viewModel.pokemonImage)
             pokemonName.text = viewModel.pokemonName.capitalized
@@ -26,10 +30,14 @@ class PokemonListTableViewCell: UITableViewCell {
         }
     }
     
-    private let pokemonImageView = CustomImageView()
-    private let pokemonName = UILabel()
     
+    //MARK: Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
+        let container = DependencyContainer()
+        let networkManager = container.makeNetworkManager()
+        pokemonImageView = CustomImageView(networkManager: networkManager)
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(containerView)
         containerView.addSubview(pokemonImageView)
@@ -48,6 +56,8 @@ class PokemonListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - Methods to setup UI
     private func configureImageView() {
         pokemonImageView.contentMode = .scaleAspectFit
         pokemonImageView.clipsToBounds = true
@@ -60,6 +70,8 @@ class PokemonListTableViewCell: UITableViewCell {
         pokemonName.textColor = .black
     }
     
+    
+    //MARK: - Constraints
     private func setContainerViewConstraints() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -91,6 +103,8 @@ class PokemonListTableViewCell: UITableViewCell {
         ])
     }
     
+    
+    //MARK: - Cell animation
     private func animatePressing() {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.containerView.transform =

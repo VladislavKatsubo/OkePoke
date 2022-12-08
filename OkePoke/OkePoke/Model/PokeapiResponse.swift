@@ -8,33 +8,34 @@
 import Foundation
 
 // MARK: - List response
-struct PokeapiResponse: Codable {
-    var next: String
-    var results: [PokemonData]
+struct PokeapiResponse: Decodable {
+    let next: String
+    let results: [PokemonData]
 }
 
-struct PokemonData: Codable {
-    var name: String
-    var url: String
+struct PokemonData: Decodable {
+    let name: String
+    let url: String
 }
+
 
 // MARK: - ID response
-struct PokemonInfo: Codable {
-    var name: String
-    var height: Int
-    var sprites: Sprites
-    var weight: Int
-    var types: [PokemonType]
+struct PokemonInfo: Decodable {
+    let name: String
+    let height: Int
+    let sprites: Sprites
+    let weight: Int
+    let types: [PokemonType]
+}
+extension PokemonInfo {
+    struct Sprites: Decodable {
+        let frontDefault: String
+    }
+    struct PokemonType: Decodable {
+        let type: AvailableTypes
+    }
 }
 
-struct Sprites: Codable {
-    var frontDefault: String
-}
-
-struct PokemonType: Codable {
-    var type: AvailableTypes
-}
-
-struct AvailableTypes: Codable {
-    var name: String
+struct AvailableTypes: Decodable {
+    let name: String
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PokemonListVCLayout: UIView {
+final class PokemonListVCLayout: UIView {
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     override init(frame: CGRect) {
@@ -27,6 +27,8 @@ class PokemonListVCLayout: UIView {
         tableView.separatorStyle = .none
     }
     
+    
+    //MARK: - Pagination methods
     func checkScroll(for scrollView: UIScrollView, completion: () -> ()) {
         let position = scrollView.contentOffset.y
         

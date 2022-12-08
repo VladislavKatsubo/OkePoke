@@ -7,12 +7,23 @@
 
 import UIKit
 
-let imageCache = NSCache<AnyObject, AnyObject>()
+private let imageCache = NSCache<AnyObject, AnyObject>()
 
-class CustomImageView: UIImageView {
+final class CustomImageView: UIImageView {
     
     let activityView = UIActivityIndicatorView(style: .large)
     var imageUrlString: String?
+    
+    private let networkManager: NetworkManagerProtocol
+    
+    init(networkManager: NetworkManagerProtocol) {
+        self.networkManager = networkManager
+        super.init(image: nil, highlightedImage: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func loadImageFromURL(_ urlString: String) {
         imageUrlString = urlString
@@ -31,7 +42,7 @@ class CustomImageView: UIImageView {
             return
         }
         
-        NetworkManager.shared.loadImage(url: url) { [weak self] result in
+        networkManager.loadImage(url: url) { [weak self] result in
             DispatchQueue.main.async {
                 self?.activityView.stopAnimating()
                 self?.activityView.removeFromSuperview()

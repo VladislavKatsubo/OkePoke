@@ -8,21 +8,23 @@
 import UIKit
 
 
-class PokemonDetailVCLayout: UIView {
-        
-    var pokemonImageView: CustomImageView = {
-        let imageView = CustomImageView()
+final class PokemonDetailVCLayout: UIView {
+    
+    //MARK: - Properties
+    let pokemonImageView: CustomImageView = {
+        let container = DependencyContainer()
+        let imageView = CustomImageView(networkManager: container.makeNetworkManager())
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    var infoContainer: UIView = {
+    let infoContainer: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
         return contentView
     }()
     
-    var nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 32)
@@ -31,7 +33,7 @@ class PokemonDetailVCLayout: UIView {
         return label
     }()
     
-    var firstTypeLabel: UILabel = {
+    private let firstTypeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -40,7 +42,7 @@ class PokemonDetailVCLayout: UIView {
         return label
     }()
     
-    var secondTypeLabel: UILabel = {
+    private let secondTypeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -50,7 +52,7 @@ class PokemonDetailVCLayout: UIView {
         return label
     }()
     
-    var weightLabel: UILabel = {
+    let weightLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 22)
@@ -60,7 +62,7 @@ class PokemonDetailVCLayout: UIView {
         return label
     }()
     
-    var heightLabel: UILabel = {
+    let heightLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 22)
@@ -69,30 +71,19 @@ class PokemonDetailVCLayout: UIView {
         label.sizeToFit()
         return label
     }()
-    
-    
-    var viewModel: PokemonDetailViewModel! {
-        didSet {
-            pokemonImageView.loadImageFromURL(viewModel.imageURL)
-            nameLabel.text = setNameLabelText(with: viewModel)
-            weightLabel.attributedText = setWeightLabelText(with: viewModel)
-            heightLabel.attributedText = setHeightLabelText(with: viewModel)
-            setTypeLabels(with: viewModel)
-            layer.insertSublayer(getBackgroundGradient(for: viewModel), at: 0)
-            infoContainer.applyShadow(cornerRadius: 8)
-            addBlur()
-        }
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureScreen()
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - Constraints
     func configureScreen() {
         addSubview(infoContainer)
         infoContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -152,7 +143,9 @@ class PokemonDetailVCLayout: UIView {
         ])
     }
     
-    func setTypeLabels(with viewModel: PokemonDetailViewModel) {
+    
+    //MARK: - Methods to setup UI
+    func setTypeLabels(with viewModel: PokemonDetailViewModelProtocol) {
         let firstType = viewModel.types[0]
         firstTypeLabel.text = firstType.uppercased()
         firstTypeLabel.textColor = getBackgroundColor(type: firstType)
@@ -165,19 +158,21 @@ class PokemonDetailVCLayout: UIView {
         }
     }
     
-    func setNameLabelText(with viewModel: PokemonDetailViewModel) -> String {
+    func setNameLabelText(with viewModel: PokemonDetailViewModelProtocol) -> String {
         return "#" + String(viewModel.pokemonID) + " " + viewModel.name.capitalized
     }
     
-    func setWeightLabelText(with viewModel: PokemonDetailViewModel) -> NSAttributedString {
+    func setWeightLabelText(with viewModel: PokemonDetailViewModelProtocol) -> NSAttributedString {
         addSymbolPrefix(with: "dumbbell.fill", for: "\(Double(viewModel.weight)/10) kg")
     }
     
-    func setHeightLabelText(with viewModel: PokemonDetailViewModel) -> NSAttributedString {
+    func setHeightLabelText(with viewModel: PokemonDetailViewModelProtocol) -> NSAttributedString {
         addSymbolPrefix(with: "arrow.up.and.down", for: "\(Double(viewModel.height)/10) m")
     }
     
-    func getBackgroundGradient(for viewModel: PokemonDetailViewModel) -> CAGradientLayer {
+    
+    //MARK: Methods for Gradient+Blur
+    func getBackgroundGradient(for viewModel: PokemonDetailViewModelProtocol) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         switch viewModel.types.count {
         case 2:

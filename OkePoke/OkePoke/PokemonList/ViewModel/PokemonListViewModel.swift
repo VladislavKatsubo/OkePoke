@@ -7,12 +7,25 @@
 
 import Foundation
 
-class PokemonListViewModel {
-    private var pokemonService = PokemonListService()
-    private var pokemonList: [PokemonData] = []
-    private let baseURL = URL(string: "https://pokeapi.co/api/v2/pokemon")
+protocol PokemonListViewModelProtocol {
+    var pokemonList: [PokemonData] { get }
+    var isPaginating: Bool { get }
+    func numberOfRows() -> Int
+    func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModelProtocol
+    func loadPokemonList(pagination: Bool, completion: @escaping () -> ())
+    init(pokemonService: PokemonListServiceProtocol)
+}
+
+final class PokemonListViewModel: PokemonListViewModelProtocol {
+    private let pokemonService: PokemonListServiceProtocol
+    internal var pokemonList: [PokemonData] = []
+    private let baseURL = URLManager.pokemonListURL.infoURL
     private var nextURL: URL?
     var isPaginating = false
+    
+    init(pokemonService: PokemonListServiceProtocol) {
+        self.pokemonService = pokemonService
+    }
     
     func loadPokemonList(pagination: Bool = false, completion: @escaping () -> ()) {
         if pagination {
@@ -34,7 +47,7 @@ class PokemonListViewModel {
     }
     
     
-    func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModel? {
+    func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModelProtocol {
         let pokemonData = pokemonList[indexPath.row]
         return PokemonListTableViewCellViewModel(pokemonData: pokemonData, pokemonID: indexPath.row + 1)
     }

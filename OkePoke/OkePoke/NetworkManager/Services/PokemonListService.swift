@@ -7,10 +7,21 @@
 
 import Foundation
 
-struct PokemonListService {
+protocol PokemonListServiceProtocol {
+    func loadPokemonData(with url: URL, completion: @escaping (PokeapiResponse) -> ())
+    init(networkManager: NetworkManagerProtocol)
+}
+
+struct PokemonListService: PokemonListServiceProtocol {
         
+    internal let networkManager: NetworkManagerProtocol
+    
+    init(networkManager: NetworkManagerProtocol) {
+        self.networkManager = networkManager
+    }
+    
     func loadPokemonData(with url: URL, completion: @escaping (PokeapiResponse) -> ()) {
-        NetworkManager.shared.fetchData(with: url, ofType: PokeapiResponse.self) { result in
+        networkManager.fetchData(with: url, ofType: PokeapiResponse.self) { result in
             switch result {
             case .success(let data):
                 completion(data)

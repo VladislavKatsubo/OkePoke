@@ -7,15 +7,22 @@
 
 import Foundation
 
-class NetworkManager {
+protocol NetworkManagerProtocol {
+    func fetchData<T>(with url: URL, ofType: T.Type, completion: @escaping (Result<T,Error>) -> Void ) where T: Decodable
+    func loadImage(url: URL, completion: @escaping (Result<Data,Error>) -> ())
+    init(session: URLSession)
+}
+
+final class NetworkManager: NetworkManagerProtocol {
+        
+    internal var session: URLSession
     
-    static let shared = NetworkManager()
-    private let urlSession = URLSession.shared
+    init(session: URLSession) {
+        self.session = session
+    }
     
-    let listURL = "https://pokeapi.co/api/v2/pokemon"
-    
-    func fetchData<T>(with url: URL, ofType: T.Type, completion: @escaping (Result<T,Error>) -> Void ) where T: Codable {
-        urlSession.dataTask(with: url) { data, response, error in
+    func fetchData<T>(with url: URL, ofType: T.Type, completion: @escaping (Result<T,Error>) -> Void ) where T: Decodable {
+        session.dataTask(with: url) { data, response, error in
             guard let data = data else { return print(error ?? "No error description") }
             do {
                 let decoder = JSONDecoder()
@@ -31,7 +38,7 @@ class NetworkManager {
     }
     
     func loadImage(url: URL, completion: @escaping (Result<Data,Error>) -> ()) {
-        urlSession.dataTask(with: url) { data, responce, error in
+        session.dataTask(with: url) { data, responce, error in
             guard let data = data else { return }
             DispatchQueue.main.async {
                 completion(.success(data))
