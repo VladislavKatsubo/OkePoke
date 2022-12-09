@@ -29,6 +29,7 @@
 		0D1222362933D916006CB88C /* PokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1222352933D916006CB88C /* PokemonDetailViewController.swift */; };
 		0D3D296629409A3E005AE832 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3D296529409A3E005AE832 /* URLManager.swift */; };
 		0D3D296929412104005AE832 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3D296829412104005AE832 /* DIContainer.swift */; };
+		0D3D296B29433EF1005AE832 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3D296A29433EF1005AE832 /* Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		0D1222352933D916006CB88C /* PokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewController.swift; sourceTree = "<group>"; };
 		0D3D296529409A3E005AE832 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		0D3D296829412104005AE832 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		0D3D296A29433EF1005AE832 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +74,10 @@
 		0D014146293651A100F68F35 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0D3D296A29433EF1005AE832 /* Box.swift */,
 				0D3D296829412104005AE832 /* DIContainer.swift */,
-				0D014147293651BC00F68F35 /* GetBackgroundColor.swift */,
 				0D01414D2936613500F68F35 /* AddSFSymbol.swift */,
+				0D014147293651BC00F68F35 /* GetBackgroundColor.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				0D014148293651BC00F68F35 /* GetBackgroundColor.swift in Sources */,
 				0D12221F2930B29D006CB88C /* UIView + extension.swift in Sources */,
 				0D1221FD292F9A3F006CB88C /* SceneDelegate.swift in Sources */,
+				0D3D296B29433EF1005AE832 /* Box.swift in Sources */,
 				0D12221D2930B236006CB88C /* PokemonListVCLayout.swift in Sources */,
 				0D1222302933C9BB006CB88C /* PokemonDetailViewModel.swift in Sources */,
 				0D1222232930C49F006CB88C /* PokemonListViewModel.swift in Sources */,

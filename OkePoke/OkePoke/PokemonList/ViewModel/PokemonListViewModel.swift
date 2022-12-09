@@ -8,17 +8,17 @@
 import Foundation
 
 protocol PokemonListViewModelProtocol {
-    var pokemonList: [PokemonData] { get }
+    var pokemonList: Box<[PokemonData]> { get set }
     var isPaginating: Bool { get }
+    init(pokemonService: PokemonListServiceProtocol)
     func numberOfRows() -> Int
     func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModelProtocol
-    func loadPokemonList(pagination: Bool, completion: @escaping () -> ())
-    init(pokemonService: PokemonListServiceProtocol)
+    func loadPokemonList(pagination: Bool)
 }
 
 final class PokemonListViewModel: PokemonListViewModelProtocol {
     private let pokemonService: PokemonListServiceProtocol
-    internal var pokemonList: [PokemonData] = []
+    var pokemonList: Box<[PokemonData]> = Box([])
     private let baseURL = URLManager.pokemonListURL.infoURL
     private var nextURL: URL?
     var isPaginating = false
@@ -27,15 +27,14 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
         self.pokemonService = pokemonService
     }
     
-    func loadPokemonList(pagination: Bool = false, completion: @escaping () -> ()) {
+    func loadPokemonList(pagination: Bool = false) {
         if pagination {
             isPaginating = true
         }
         guard let url = (pagination ? nextURL : baseURL) else { return }
         pokemonService.loadPokemonData(with: url) { [weak self] result in
             self?.nextURL = URL(string: result.next)
-            self?.pokemonList.append(contentsOf: result.results)
-            completion()
+            self?.pokemonList.value.append(contentsOf: result.results)
             if pagination {
                 self?.isPaginating = false
             }
@@ -43,12 +42,11 @@ final class PokemonListViewModel: PokemonListViewModelProtocol {
     }
     
     func numberOfRows() -> Int {
-        return pokemonList.count
+        return pokemonList.value.count
     }
     
-    
     func cellViewModel(at indexPath: IndexPath) -> PokemonListTableViewCellViewModelProtocol {
-        let pokemonData = pokemonList[indexPath.row]
+        let pokemonData = pokemonList.value[indexPath.row]
         return PokemonListTableViewCellViewModel(pokemonData: pokemonData, pokemonID: indexPath.row + 1)
     }
     

@@ -8,49 +8,42 @@
 import Foundation
 
 protocol PokemonDetailViewModelProtocol {
-    var pokemonID: Int { get }
-    var name: String { get }
-    var types: [String] { get }
-    var weight: Int { get }
-    var height: Int { get }
+    var pokemonDetailedInfo: Box<PokemonInfo?> { get set }
     var imageURL: String { get }
-    var downloadedPokemon: (()->())? { get set }
-    func loadPokemonDetails()
     init(pokemonID: Int, pokemonDetailService: PokemonDetailServiceProtocol)
+    func loadPokemonDetails()
 }
 
 final class PokemonDetailViewModel: PokemonDetailViewModelProtocol {
     
     private let pokemonDetailService: PokemonDetailServiceProtocol
-    private var pokemonDetailedInfo: PokemonInfo?
+    internal var pokemonDetailedInfo: Box<PokemonInfo?> = Box(nil)
     private let pokemonDetailURL: URL
     let pokemonID: Int
     
     var name: String {
-        return "\(pokemonDetailedInfo?.name ?? "No data")"
+        return "\(pokemonDetailedInfo.value?.name ?? "No data")"
     }
     
     var types: [String] {
         var names = [String]()
-        pokemonDetailedInfo?.types.forEach({
+        pokemonDetailedInfo.value?.types.forEach({
             names.append($0.type.name)
         })
         return names
     }
     
     var weight: Int {
-        return pokemonDetailedInfo?.weight ?? 0
+        return pokemonDetailedInfo.value?.weight ?? 0
     }
     
     var height: Int {
-        return pokemonDetailedInfo?.height ?? 0
+        return pokemonDetailedInfo.value?.height ?? 0
     }
     
     var imageURL: String {
         URLManager.pokemonFullDetailImageURL(forID: pokemonID).imageURL.absoluteString
     }
-    
-    var downloadedPokemon: (() -> ())?
     
     init(pokemonID: Int, pokemonDetailService: PokemonDetailServiceProtocol) {
         self.pokemonID = pokemonID
@@ -60,8 +53,7 @@ final class PokemonDetailViewModel: PokemonDetailViewModelProtocol {
     
     func loadPokemonDetails() {
         pokemonDetailService.loadPokemonDetails(for: pokemonDetailURL, with: pokemonID) { [weak self] PokemonInfo in
-            self?.pokemonDetailedInfo = PokemonInfo
-            self?.downloadedPokemon?()
+            self?.pokemonDetailedInfo.value = PokemonInfo
         }
     }
     

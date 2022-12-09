@@ -21,6 +21,7 @@ struct PokemonData: Decodable {
 
 // MARK: - ID response
 struct PokemonInfo: Decodable {
+    let id: Int
     let name: String
     let height: Int
     let sprites: Sprites

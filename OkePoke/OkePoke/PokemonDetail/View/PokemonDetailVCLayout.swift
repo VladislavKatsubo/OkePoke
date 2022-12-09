@@ -145,12 +145,13 @@ final class PokemonDetailVCLayout: UIView {
     
     
     //MARK: - Methods to setup UI
-    func setTypeLabels(with viewModel: PokemonDetailViewModelProtocol) {
-        let firstType = viewModel.types[0]
+//    func setTypeLabels(with viewModel: PokemonDetailViewModelProtocol) {
+    func setTypeLabels(with pokemonInfo: PokemonInfo) {
+        let firstType = pokemonInfo.types[0].type.name
         firstTypeLabel.text = firstType.uppercased()
         firstTypeLabel.textColor = getBackgroundColor(type: firstType)
-        if viewModel.types.count > 1 {
-            let secondType = viewModel.types[1]
+        if pokemonInfo.types.count > 1 {
+            let secondType = pokemonInfo.types[1].type.name
             secondTypeLabel.text = secondType.uppercased()
             secondTypeLabel.textColor = getBackgroundColor(type: secondType)
         } else {
@@ -158,31 +159,31 @@ final class PokemonDetailVCLayout: UIView {
         }
     }
     
-    func setNameLabelText(with viewModel: PokemonDetailViewModelProtocol) -> String {
-        return "#" + String(viewModel.pokemonID) + " " + viewModel.name.capitalized
+    func setNameLabelText(withID id: Int, name: String) -> String {
+        "#" + String(id) + " " + name.capitalized
     }
     
-    func setWeightLabelText(with viewModel: PokemonDetailViewModelProtocol) -> NSAttributedString {
-        addSymbolPrefix(with: "dumbbell.fill", for: "\(Double(viewModel.weight)/10) kg")
+    func setWeightLabelText(with weight: Int) -> NSAttributedString {
+        addSymbolPrefix(with: "dumbbell.fill", for: "\(Double(weight)/10) kg")
     }
     
-    func setHeightLabelText(with viewModel: PokemonDetailViewModelProtocol) -> NSAttributedString {
-        addSymbolPrefix(with: "arrow.up.and.down", for: "\(Double(viewModel.height)/10) m")
+    func setHeightLabelText(with height: Int) -> NSAttributedString {
+        addSymbolPrefix(with: "arrow.up.and.down", for: "\(Double(height)/10) m")
     }
     
     
     //MARK: Methods for Gradient+Blur
-    func getBackgroundGradient(for viewModel: PokemonDetailViewModelProtocol) -> CAGradientLayer {
+    func getBackgroundGradient(for pokemonInfo: PokemonInfo) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
-        switch viewModel.types.count {
+        switch pokemonInfo.types.count {
         case 2:
             gradientLayer.colors = [
-                getBackgroundColor(type: viewModel.types[0]).cgColor,
-                getBackgroundColor(type: viewModel.types[1]).cgColor
+                getBackgroundColor(type: pokemonInfo.types[0].type.name).cgColor,
+                getBackgroundColor(type: pokemonInfo.types[1].type.name).cgColor
             ]
         default:
             gradientLayer.colors = [
-                getBackgroundColor(type: viewModel.types[0]).cgColor,
+                getBackgroundColor(type: pokemonInfo.types[0].type.name).cgColor,
                 UIColor.white.cgColor
             ]
         }

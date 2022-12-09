@@ -23,18 +23,19 @@ final class PokemonDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.loadPokemonDetails()
-        viewModel.downloadedPokemon = { [unowned self] in
-            guard let viewModel = viewModel as? PokemonDetailViewModel else { return }
+        viewModel.pokemonDetailedInfo.bind { [weak self] pokemonInfo in
+            guard let pokemonInfo = pokemonInfo, let layout = self?.layout, let viewModel = self?.viewModel else { return }
             layout.pokemonImageView.loadImageFromURL(viewModel.imageURL)
-            layout.nameLabel.text = layout.setNameLabelText(with: viewModel)
-            layout.weightLabel.attributedText = layout.setWeightLabelText(with: viewModel)
-            layout.heightLabel.attributedText = layout.setHeightLabelText(with: viewModel)
-            layout.setTypeLabels(with: viewModel)
-            layout.layer.insertSublayer(layout.getBackgroundGradient(for: viewModel), at: 0)
+            layout.nameLabel.text = layout.setNameLabelText(withID: pokemonInfo.id, name: pokemonInfo.name)
+            layout.weightLabel.attributedText = layout.setWeightLabelText(with: pokemonInfo.weight)
+            layout.heightLabel.attributedText = layout.setHeightLabelText(with: pokemonInfo.height)
+            layout.setTypeLabels(with: pokemonInfo)
+            layout.layer.insertSublayer(layout.getBackgroundGradient(for: pokemonInfo), at: 0)
             layout.infoContainer.applyShadow(cornerRadius: 8)
             layout.addBlur()
         }
+        
+        viewModel.loadPokemonDetails()
         navigationController?.navigationBar.tintColor = .white
     }
     

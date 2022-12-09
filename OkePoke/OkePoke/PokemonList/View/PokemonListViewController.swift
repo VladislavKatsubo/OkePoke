@@ -26,10 +26,10 @@ final class PokemonListViewController: UIViewController {
     //MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.loadPokemonList(pagination: false) {
-                self.layout.tableView.reloadData()
+        viewModel.pokemonList.bind { [weak self] list in            
+            self?.layout.tableView.reloadData()
         }
+        viewModel.loadPokemonList(pagination: false)
         
         layout.tableView.delegate = self
         layout.tableView.dataSource = self
@@ -75,10 +75,13 @@ extension PokemonListViewController: UIScrollViewDelegate {
         layout.checkScroll(for: scrollView) {
             guard !viewModel.isPaginating else { return }
             layout.setSpinnerFooter()
-            viewModel.loadPokemonList(pagination: true) {
-                self.layout.tableView.reloadData()
-                self.layout.tableView.tableFooterView = .none
+            viewModel.pokemonList.bind { [weak self] _ in
+                self?.layout.tableView.reloadData()
+                self?.layout.tableView.tableFooterView = .none
             }
+            viewModel.loadPokemonList(pagination: true)
+            
+            
         }
     }
     
